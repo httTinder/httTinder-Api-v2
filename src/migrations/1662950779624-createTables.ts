@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class createTables1662935379287 implements MigrationInterface {
-    name = 'createTables1662935379287'
+export class createTables1662950779624 implements MigrationInterface {
+    name = 'createTables1662950779624'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "addresses" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "country" character varying NOT NULL, "city" character varying NOT NULL, "state" character varying NOT NULL, "zipCode" character varying(8) NOT NULL, "distict" character varying NOT NULL, CONSTRAINT "PK_745d8f43d3af10ab8247465e450" PRIMARY KEY ("id"))`);
@@ -14,6 +14,9 @@ export class createTables1662935379287 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "type_of_relationship" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "friendship" boolean NOT NULL DEFAULT false, "casual" boolean NOT NULL DEFAULT false, "serious" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_e5bf8fd6ffbfbde182aa4cb8876" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user_images" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "link" character varying NOT NULL, "width" character varying NOT NULL, "height" character varying NOT NULL, "userProfileId" uuid, CONSTRAINT "PK_8c5d93e1b746bef23c0cf9aa3a6" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user_profile" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "orientation" character varying, "gender" character varying, "bio" character varying, "height" character varying, "education" character varying, "profession" character varying, "profileImage" character varying, "typeOfRelationshipId" uuid, "lookingForId" uuid, CONSTRAINT "REL_a3cf2b2cdb20377a60f316171d" UNIQUE ("typeOfRelationshipId"), CONSTRAINT "REL_e8ed974bd3abb351d9f6b2d78a" UNIQUE ("lookingForId"), CONSTRAINT "PK_f44d0cd18cfd80b0fed7806c3b7" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "chat" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "receiver" character varying NOT NULL, "message" character varying, "image" character varying, "location" character varying, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" uuid, CONSTRAINT "PK_9d0b2ba74336710fd31154738a5" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "likes" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "receiver" character varying NOT NULL, "status" boolean NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" uuid, CONSTRAINT "PK_a9323de3f8bced7539a794b4a37" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "sessions" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" uuid, CONSTRAINT "PK_3238ef96f18b355b671619111bc" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(60) NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "age" integer NOT NULL, "isActive" boolean NOT NULL, "isAdm" boolean NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "addressId" uuid, "profileId" uuid, "userAdditionalDataId" uuid, CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "REL_217ba147c5de6c107f2fa7fa27" UNIQUE ("addressId"), CONSTRAINT "REL_9466682df91534dd95e4dbaa61" UNIQUE ("profileId"), CONSTRAINT "REL_34a6ac21ab3c1036f30856e761" UNIQUE ("userAdditionalDataId"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
         await queryRunner.query(`ALTER TABLE "user_hobbies" ADD CONSTRAINT "FK_e6653af704a8011ca287bbb1d1d" FOREIGN KEY ("userAdditionalDataId") REFERENCES "user_aditional_data"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user_languages" ADD CONSTRAINT "FK_2148421d92aebdd5e97b0a46dd7" FOREIGN KEY ("userAdditionalDataId") REFERENCES "user_aditional_data"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -22,6 +25,9 @@ export class createTables1662935379287 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user_images" ADD CONSTRAINT "FK_42dc10ee00e99bb8bd02382892d" FOREIGN KEY ("userProfileId") REFERENCES "user_profile"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user_profile" ADD CONSTRAINT "FK_a3cf2b2cdb20377a60f316171d8" FOREIGN KEY ("typeOfRelationshipId") REFERENCES "type_of_relationship"("id") ON DELETE SET NULL ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user_profile" ADD CONSTRAINT "FK_e8ed974bd3abb351d9f6b2d78af" FOREIGN KEY ("lookingForId") REFERENCES "looking_for"("id") ON DELETE SET NULL ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "chat" ADD CONSTRAINT "FK_52af74c7484586ef4bdfd8e4dbb" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "likes" ADD CONSTRAINT "FK_cfd8e81fac09d7339a32e57d904" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "sessions" ADD CONSTRAINT "FK_57de40bc620f456c7311aa3a1e6" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "FK_217ba147c5de6c107f2fa7fa271" FOREIGN KEY ("addressId") REFERENCES "addresses"("id") ON DELETE SET NULL ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "FK_9466682df91534dd95e4dbaa616" FOREIGN KEY ("profileId") REFERENCES "user_profile"("id") ON DELETE SET NULL ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "FK_34a6ac21ab3c1036f30856e7619" FOREIGN KEY ("userAdditionalDataId") REFERENCES "user_aditional_data"("id") ON DELETE SET NULL ON UPDATE NO ACTION`);
@@ -31,6 +37,9 @@ export class createTables1662935379287 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_34a6ac21ab3c1036f30856e7619"`);
         await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_9466682df91534dd95e4dbaa616"`);
         await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_217ba147c5de6c107f2fa7fa271"`);
+        await queryRunner.query(`ALTER TABLE "sessions" DROP CONSTRAINT "FK_57de40bc620f456c7311aa3a1e6"`);
+        await queryRunner.query(`ALTER TABLE "likes" DROP CONSTRAINT "FK_cfd8e81fac09d7339a32e57d904"`);
+        await queryRunner.query(`ALTER TABLE "chat" DROP CONSTRAINT "FK_52af74c7484586ef4bdfd8e4dbb"`);
         await queryRunner.query(`ALTER TABLE "user_profile" DROP CONSTRAINT "FK_e8ed974bd3abb351d9f6b2d78af"`);
         await queryRunner.query(`ALTER TABLE "user_profile" DROP CONSTRAINT "FK_a3cf2b2cdb20377a60f316171d8"`);
         await queryRunner.query(`ALTER TABLE "user_images" DROP CONSTRAINT "FK_42dc10ee00e99bb8bd02382892d"`);
@@ -39,6 +48,9 @@ export class createTables1662935379287 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user_languages" DROP CONSTRAINT "FK_2148421d92aebdd5e97b0a46dd7"`);
         await queryRunner.query(`ALTER TABLE "user_hobbies" DROP CONSTRAINT "FK_e6653af704a8011ca287bbb1d1d"`);
         await queryRunner.query(`DROP TABLE "user"`);
+        await queryRunner.query(`DROP TABLE "sessions"`);
+        await queryRunner.query(`DROP TABLE "likes"`);
+        await queryRunner.query(`DROP TABLE "chat"`);
         await queryRunner.query(`DROP TABLE "user_profile"`);
         await queryRunner.query(`DROP TABLE "user_images"`);
         await queryRunner.query(`DROP TABLE "type_of_relationship"`);
