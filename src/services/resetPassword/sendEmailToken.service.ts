@@ -28,7 +28,7 @@ export const sendEmailTokenService = async (email: string) => {
     }
   );
 
-  sendEmail({ to: email, subject: "Confirm your reset email", text: token });
+  sendEmail({ to: email, subject: "Confirm to your reset password", text: token });
 
   return token;
 };
