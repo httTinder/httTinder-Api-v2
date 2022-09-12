@@ -6,7 +6,7 @@ import sendEmail from "../../utils/nodemailer.util";
 
 export const sendEmailTokenService = async (email: string) => {
   const userRepository = AppDataSource.getRepository(user);
-
+  console.log(email)
   const findUser = await userRepository.findOne({
     where: {
       email: email,

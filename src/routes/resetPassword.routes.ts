@@ -13,7 +13,10 @@ resetRoutes.post(
   userConfirmTokenController
 );
 
-resetRoutes.patch("/resetPassword/:tokenEmail/newPassword", activateUserMiddleware,userResetPasswordController)
-
+resetRoutes.patch(
+  "/resetPassword/:tokenEmail/newPassword",
+  activateUserMiddleware,
+  userResetPasswordController
+);
 
 export default resetRoutes;
