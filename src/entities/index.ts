@@ -7,11 +7,15 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { Min } from "class-validator";
 import { userAddresses } from "./user_address";
 import { userAdditionalData } from "./user_aditional_data";
 import { userProfile } from "./user_profile/index";
+import { chat } from "./chat";
+import { likes } from "./likes";
+import { sessions } from "./sessions";
 
 @Entity("user")
 export class user {
@@ -67,4 +71,37 @@ export class user {
   })
   @JoinColumn()
   userAdditionalData: userAdditionalData;
+
+  @OneToMany(
+    () => likes,
+    (like) => like.user,
+    {
+      eager: true,
+      nullable: true,
+      onDelete: "SET NULL",
+    }
+  )
+  likes: likes[];
+
+  @OneToMany(
+    () => sessions,
+    (login) => login.user,
+    {
+      eager: true,
+      nullable: true,
+      onDelete: "SET NULL",
+    }
+  )
+  sessions: sessions[];
+
+  @OneToMany(
+    () => chat,
+    (message) => message.user,
+    {
+      eager: true,
+      nullable: true,
+      onDelete: "SET NULL",
+    }
+  )
+  chat: chat[];
 }
