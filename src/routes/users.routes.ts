@@ -53,6 +53,8 @@ import { petsSchema } from "../schemas/userAddData/pets/pets.schemas";
 import { updateUserProfileImageController } from "../controllers/user/user_profile/profile_image/updateProfileImage.controller";
 import { deleteUserProfileImageController } from "../controllers/user/user_profile/profile_image/deleteProfileImage.controller";
 import { resendController } from "../controllers/user/resend.controller";
+import { locationUpdateController } from "../controllers/user/locationUpdate.controller";
+import { locationDeleteController } from "../controllers/user/locationDelete.controller";
 
 const usersRoutes = Router();
 
@@ -340,6 +342,24 @@ usersRoutes.delete(
 usersRoutes.patch(
   "/resend/",
   resendController
+)
+
+usersRoutes.patch(
+  "/location/:id?",
+  verifyAuthMiddleware,
+  adminPermission,
+  verifyActiveMiddleware,
+  verifyIdMiddleware,
+  locationUpdateController
+)
+
+usersRoutes.delete(
+  "/location/:id?",
+  verifyAuthMiddleware,
+  adminPermission,
+  verifyActiveMiddleware,
+  verifyIdMiddleware,
+  locationDeleteController
 )
 
 export default usersRoutes;

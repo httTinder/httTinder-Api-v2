@@ -41,6 +41,9 @@ export class user {
   @Column()
   isAdm?: boolean;
 
+  @Column({nullable:true})
+  location?: string
+
   @CreateDateColumn()
   createdAt: Date;
 
