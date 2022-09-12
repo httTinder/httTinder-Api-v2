@@ -7,14 +7,15 @@ import { activateUserMiddleware } from "../middlewares/activateUser.middleware";
 const resetRoutes = Router();
 
 resetRoutes.post("", sendEmailTokenController);
+
 resetRoutes.post(
-  "/resetPassword/:tokenEmail",
-  activateUserMiddleware,
+  "/:tokenEmail",
+  // activateUserMiddleware,
   userConfirmTokenController
 );
 
 resetRoutes.patch(
-  "/resetPassword/:tokenEmail/newPassword",
+  "/:tokenEmail/newPassword",
   activateUserMiddleware,
   userResetPasswordController
 );
