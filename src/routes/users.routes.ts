@@ -52,6 +52,7 @@ import { musicSchema } from "../schemas/userAddData/music/music.schemas";
 import { petsSchema } from "../schemas/userAddData/pets/pets.schemas";
 import { updateUserProfileImageController } from "../controllers/user/user_profile/profile_image/updateProfileImage.controller";
 import { deleteUserProfileImageController } from "../controllers/user/user_profile/profile_image/deleteProfileImage.controller";
+import { resendController } from "../controllers/user/resend.controller";
 
 const usersRoutes = Router();
 
@@ -335,5 +336,10 @@ usersRoutes.delete(
   verifyIdMiddleware,
   deleteUserProfileImageController
 );
+
+usersRoutes.patch(
+  "/resend/",
+  resendController
+)
 
 export default usersRoutes;
