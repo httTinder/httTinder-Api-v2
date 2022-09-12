@@ -22,7 +22,7 @@ export class user {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({ length: 60 })
+  @Column()
   name: string;
 
   @Column({ unique: true })
@@ -33,7 +33,6 @@ export class user {
   password: string;
 
   @Column()
-  @Min(18)
   age: number;
 
   @Column()
@@ -72,36 +71,24 @@ export class user {
   @JoinColumn()
   userAdditionalData: userAdditionalData;
 
-  @OneToMany(
-    () => likes,
-    (like) => like.user,
-    {
-      eager: true,
-      nullable: true,
-      onDelete: "SET NULL",
-    }
-  )
-  likes: likes[];
+  @OneToMany(() => likes, (likes) => likes.user, {
+    eager: true,
+    nullable: true,
+    onDelete: "SET NULL",
+  })
+  likes: likes;
 
-  @OneToMany(
-    () => sessions,
-    (login) => login.user,
-    {
-      eager: true,
-      nullable: true,
-      onDelete: "SET NULL",
-    }
-  )
-  sessions: sessions[];
+  @OneToMany(() => sessions, (sessions) => sessions.user, {
+    eager: true,
+    nullable: true,
+    onDelete: "SET NULL",
+  })
+  sessions: sessions;
 
-  @OneToMany(
-    () => chat,
-    (message) => message.user,
-    {
-      eager: true,
-      nullable: true,
-      onDelete: "SET NULL",
-    }
-  )
-  chat: chat[];
+  @OneToMany(() => chat, (chat) => chat.user, {
+    eager: true,
+    nullable: true,
+    onDelete: "SET NULL",
+  })
+  chat: chat;
 }

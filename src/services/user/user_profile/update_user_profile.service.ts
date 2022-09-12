@@ -29,6 +29,7 @@ const updateUserProfileService = async (
   }
 
   profileRepositoy.update(findUser.profile.id, { ...userData });
+  
   return;
 };
 
