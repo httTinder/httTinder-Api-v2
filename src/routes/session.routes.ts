@@ -1,3 +1,4 @@
+import { sendEmailTokenController } from './../controllers/userSession/resetPassword/sendEmailToken.controller';
 import { verifySchemasMiddleware } from "./../middlewares/verifySchemas.middleware";
 import { Router } from "express";
 import { userSessionController } from "../controllers/userSession/userSession.controller";
@@ -10,5 +11,6 @@ sessionRoutes.post(
   verifySchemasMiddleware(sessionSchema),
   userSessionController
 );
+
 
 export default sessionRoutes;
