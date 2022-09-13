@@ -7,18 +7,22 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { Min } from "class-validator";
 import { userAddresses } from "./user_address";
 import { userAdditionalData } from "./user_aditional_data";
 import { userProfile } from "./user_profile/index";
+import { chat } from "./chat";
+import { likes } from "./likes";
+import { sessions } from "./sessions";
 
 @Entity("user")
 export class user {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({ length: 60 })
+  @Column()
   name: string;
 
   @Column({ unique: true })
@@ -29,7 +33,6 @@ export class user {
   password: string;
 
   @Column()
-  @Min(18)
   age: number;
 
   @Column()
@@ -37,6 +40,9 @@ export class user {
 
   @Column()
   isAdm?: boolean;
+
+  @Column({nullable:true})
+  location?: string
 
   @CreateDateColumn()
   createdAt: Date;
@@ -67,4 +73,25 @@ export class user {
   })
   @JoinColumn()
   userAdditionalData: userAdditionalData;
+
+  @OneToMany(() => likes, (likes) => likes.user, {
+    eager: true,
+    nullable: true,
+    onDelete: "SET NULL",
+  })
+  likes: likes[];
+
+  @OneToMany(() => sessions, (sessions) => sessions.user, {
+    eager: true,
+    nullable: true,
+    onDelete: "SET NULL",
+  })
+  sessions: sessions[];
+
+  @OneToMany(() => chat, (chat) => chat.user, {
+    eager: true,
+    nullable: true,
+    onDelete: "SET NULL",
+  })
+  chat: chat[];
 }

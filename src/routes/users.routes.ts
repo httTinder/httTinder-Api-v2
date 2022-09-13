@@ -35,7 +35,6 @@ import updateUserHobbiesController from "../controllers/user/user_aditional_data
 import deleteUserHobbieController from "../controllers/user/user_aditional_data/user_hobbies/delete_user_hobbie.controller";
 import { userAddDataSchema } from "../schemas/userAddData/userAddData.schemas";
 import { userEditSchema, userSchema } from "../schemas/user/user.schemas";
-import { updateUserProfileSchema } from "../schemas/userProfile/updateUserProfile.schemas";
 import { relationshipSchema } from "../schemas/userProfile/lookingfor/relationship/updateRelationship.schemas";
 import { addressRequestSchema } from "../schemas/user/address/address.schemas";
 import { userProfileMiddleware } from "../middlewares/user/user_profile";
@@ -52,6 +51,9 @@ import { musicSchema } from "../schemas/userAddData/music/music.schemas";
 import { petsSchema } from "../schemas/userAddData/pets/pets.schemas";
 import { updateUserProfileImageController } from "../controllers/user/user_profile/profile_image/updateProfileImage.controller";
 import { deleteUserProfileImageController } from "../controllers/user/user_profile/profile_image/deleteProfileImage.controller";
+import { resendController } from "../controllers/user/resend.controller";
+import { locationUpdateController } from "../controllers/user/locationUpdate.controller";
+import { locationDeleteController } from "../controllers/user/locationDelete.controller";
 
 const usersRoutes = Router();
 
@@ -91,7 +93,7 @@ usersRoutes.patch(
   userEditController
 );
 
-usersRoutes.post("", verifySchemasMiddleware(userSchema), createUserController);
+usersRoutes.post("", createUserController);
 
 usersRoutes.patch(
   "/email/:tokenEmail",
@@ -218,7 +220,6 @@ usersRoutes.delete(
   adminPermission,
   verifyActiveMiddleware,
   verifyIdMiddleware,
-  verifySchemasMiddleware(updateUserProfileSchema),
   userDeleteProfileController
 );
 
@@ -334,6 +335,26 @@ usersRoutes.delete(
   verifyActiveMiddleware,
   verifyIdMiddleware,
   deleteUserProfileImageController
+);
+
+usersRoutes.patch("/resend/", resendController);
+
+usersRoutes.patch(
+  "/location/:id?",
+  verifyAuthMiddleware,
+  adminPermission,
+  verifyActiveMiddleware,
+  verifyIdMiddleware,
+  locationUpdateController
+);
+
+usersRoutes.delete(
+  "/location/:id?",
+  verifyAuthMiddleware,
+  adminPermission,
+  verifyActiveMiddleware,
+  verifyIdMiddleware,
+  locationDeleteController
 );
 
 export default usersRoutes;

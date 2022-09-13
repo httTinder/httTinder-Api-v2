@@ -4,6 +4,7 @@ import { userAdditionalData } from "../../../../entities/user_aditional_data";
 import { userHobbies } from "../../../../entities/user_aditional_data/user_hobbies";
 import { AppError } from "../../../../errors/AppError";
 import { IUserHobbies } from "../../../../interfaces/user/user_aditional_data/user_hobbies";
+import VerifyHobbies from "../../../../utils/hobbies.utils";
 
 const updateUserHobbiesService = async (
   hobbieData: IUserHobbies,
@@ -53,6 +54,10 @@ const updateUserHobbiesService = async (
     );
   }
 
+  if (name !== undefined && VerifyHobbies(name)) {
+    throw new AppError(400, "Review your Hobbie");
+  }
+  
   if (findHobbie && idToSearch) {
     userHobbieRepository.update(idToSearch, { name });
 

@@ -22,6 +22,12 @@ export const updateLookingForService = async (
     throw new AppError(400, "review required fields");
   }
 
+  const regexOrientation = /^Homem$|^Mulher$|^Homem[/]Mulher$/;
+
+  if (!regexOrientation.test(data?.gender)) {
+    throw new AppError(400, "Review required fields of orientation");
+  }
+
   const regexAge = /[1-9][0-9][-][1-9][0-9]/;
 
   if (!regexAge.test(data.age)) {
@@ -33,22 +39,41 @@ export const updateLookingForService = async (
   }
 
   const regexZodiac =
-    /[Pisces]|[Aries]|[Taurus]|[Gemini]|[Cancer]|[Leo]|[Virgo]|[Libra]|[Scorpio]|[Sagittarius]|[Capricorn]|[Aquarius]/;
+    /^Pisces$|^Aries$|^Taurus$|^Gemini$|^Cancer$|^Leo$|^Virgo$|^Libra$|^Scorpio$|^Sagittarius$|^Capricorn$|^Aquarius$/;
 
-  if (!regexZodiac.test(data.zodiac)) {
+  function verifyZodiac() {
+    let response = false;
+    data.zodiac.split("/").forEach((zdc) => {
+      if (!regexZodiac.test(zdc)) {
+        response = true;
+      }
+    });
+    return response;
+  }
+
+  if (verifyZodiac()) {
     throw new AppError(400, "review required fields of zodiac");
   }
 
-  const regexLocation = /[1-9][0-9][0-9][0-9]/;
+  const regexLocation = /[1-9]?[0-9]?[0-9]/;
 
   if (!regexLocation.test(data.location)) {
     throw new AppError(400, "required location > 1000");
   }
 
   const regexEducation =
-    /[Ensino Medio Incompleto][Ensino Medio Completo][Ensino Superior Incompleto][Ensino Superior Completo]/;
+    /^Ensino Medio Incompleto$|^Ensino Medio Completo$|^Ensino Superior Incompleto$|^Ensino Superior Completo$|/;
 
-  if (!regexEducation.test(data.education)) {
+    function verifyEducatio() {
+      let response = false;
+      data.education.split("/").forEach((edc) => {
+        if (!regexEducation.test(edc)) {
+          response = true;
+        }
+      });
+      return response;
+    }
+  if (verifyEducatio()) {
     throw new AppError(400, "review required fields of education");
   }
 

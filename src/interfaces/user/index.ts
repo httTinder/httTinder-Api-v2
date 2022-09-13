@@ -7,9 +7,9 @@ export interface IUserEditRequest {
 
 // entity -> user
 export interface IUserRequest {
-	name: string
-	email: string
-	password?: string
-	age: number
-  isAdm?: boolean
+  name: string;
+  email: string;
+  password: string;
+  age: number;
+  isAdm?: boolean;
 }
