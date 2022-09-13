@@ -40,7 +40,7 @@ export default async function deleteMatchSevice(
   });
 
 if(!findReqLikes){
-    throw new AppError(404, "Match not found.")
+    throw new AppError(404, "Like not found.")
 
 }
 
