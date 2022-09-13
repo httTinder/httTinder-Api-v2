@@ -14,6 +14,7 @@ const professions = [
   "Agroecologia",
   "Agronegócio",
   "Agropecuária",
+   "Engenharia",
   "Engenharia Agrícola",
   "Engenharia Agronômica",
   "Engenharia de Alimentos",
