@@ -21,7 +21,7 @@ export const userResetPasswordService = async (
 
   const hashedPassword = await hash(newPassword, 10);
 
-  userRepository.update(findUser!.id, {
+  await userRepository.update(findUser!.id, {
     password: hashedPassword,
   });
 
