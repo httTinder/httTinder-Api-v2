@@ -32,7 +32,11 @@ const createUserService = async ({
     throw new AppError(409, "Email already exists");
   }
 
-  if (age < 18) {
+  if (Number(age) === NaN) {
+    throw new AppError(400, "Age must be a numbar");
+  }
+
+  if (Number(age) < 18) {
     throw new AppError(406, "Must be over the age of 18");
   }
 

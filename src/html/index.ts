@@ -2,6 +2,7 @@ import "dotenv/config";
 
 export function htmlBody(token: string) {
   const link = process.env.BASE_URL;
+  
   const email = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -15,7 +16,7 @@ export function htmlBody(token: string) {
           <table bgcolor="#D7234D" align="center" border="0" cellpadding="0" cellspacing="0" width="600">
                <tr>
                     <td align="center" height="200">
-                         <img src="../assets/Logo httTinder.png" alt="Kenzie Love" style="display: block;" />
+                         <img src="https://res.cloudinary.com/dtgkjo5sy/image/upload/v1663086085/logos/Logo_httTinder_itbf44.png" alt="Kenzie Love" style="display: block;" />
                     </td>
                </tr>
                <!-- MAIN BODY -->
@@ -38,7 +39,7 @@ export function htmlBody(token: string) {
                               </tr>
                               <tr>
                                    <td>
-                                        <img src="../assets/loveGhost.png" alt="" width="60%" style="display: block;" />
+                                        <img src="https://res.cloudinary.com/dtgkjo5sy/image/upload/v1663086085/logos/loveGhost_log09q.png" alt="" width="60%" style="display: block;" />
                                    </td>
                               </tr>
                               <!-- RODAPE -->
