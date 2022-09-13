@@ -93,7 +93,7 @@ usersRoutes.patch(
   userEditController
 );
 
-usersRoutes.post("", verifySchemasMiddleware(userSchema), createUserController);
+usersRoutes.post("", createUserController);
 
 usersRoutes.patch(
   "/email/:tokenEmail",
@@ -337,10 +337,7 @@ usersRoutes.delete(
   deleteUserProfileImageController
 );
 
-usersRoutes.patch(
-  "/resend/",
-  resendController
-)
+usersRoutes.patch("/resend/", resendController);
 
 usersRoutes.patch(
   "/location/:id?",
@@ -349,7 +346,7 @@ usersRoutes.patch(
   verifyActiveMiddleware,
   verifyIdMiddleware,
   locationUpdateController
-)
+);
 
 usersRoutes.delete(
   "/location/:id?",
@@ -358,6 +355,6 @@ usersRoutes.delete(
   verifyActiveMiddleware,
   verifyIdMiddleware,
   locationDeleteController
-)
+);
 
 export default usersRoutes;
