@@ -13,7 +13,7 @@ describe("Testing the user routes", () => {
   });
 
   afterAll(async () => {
-    await connection.destroy();
+    await connection.destroy()
   });
 
   test("Should be able to create a new user", async () => {});
