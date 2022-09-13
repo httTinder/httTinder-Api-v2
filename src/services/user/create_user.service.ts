@@ -10,7 +10,6 @@ import { IUserRequest } from "../../interfaces/user";
 
 import "dotenv/config";
 import sendEmail from "../../utils/nodemailer.util";
-import { number } from "yup";
 import { htmlBody } from "../../html";
 
 const createUserService = async ({
@@ -21,7 +20,14 @@ const createUserService = async ({
   isAdm = false,
 }: IUserRequest): Promise<user> => {
   if (!age || !email || !name || !password) {
-    throw new AppError(400, "Review required fields");
+    throw new AppError(
+      400,
+      "Review required fields: { name, email, password, age }"
+    );
+  }
+
+  if (typeof isAdm !== "boolean") {
+    throw new AppError(400, "isAdm field must be a boolean ");
   }
 
   const userRepository = AppDataSource.getRepository(user);
@@ -39,7 +45,14 @@ const createUserService = async ({
   if (Number(age) < 18) {
     throw new AppError(406, "Must be over the age of 18");
   }
-
+  const regexPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\.*])(?=.{8,})/;
+  if (!regexPassword.test(password)) {
+    throw new AppError(
+      400,
+      "The password must contain 8 characters, an uppercase, a lowercase, a number and a special character"
+    );
+  }
   const hashedPassword = await hash(password, 10);
 
   const newUser = userRepository.create({
