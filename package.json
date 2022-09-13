@@ -1,6 +1,6 @@
 {
   "name": "htttinder_api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "repository": "git@github.com:httTinder/httTinder-Api.git",
   "author": "fjrjdev <thedromemafia@gmail.com>; fabiojcp <fabio50019@gmail.com>",
