@@ -39,7 +39,7 @@ const createUserService = async ({
   }
 
   if (Number(age) === NaN) {
-    throw new AppError(400, "Age must be a numbar");
+    throw new AppError(400, "Age must be a number");
   }
 
   if (Number(age) < 18) {
