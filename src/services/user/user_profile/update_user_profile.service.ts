@@ -51,11 +51,11 @@ const updateUserProfileService = async (
     throw new AppError(400, "Review required education");
   }
 
-  if (VerifyProfission(profession)) {
+  if (profession !== undefined && VerifyProfission(profession)) {
     throw new AppError(400, "Review the list of validated professions");
   }
 
-  if (VerifyBadWords(bio)) {
+  if (bio !== undefined && VerifyBadWords(bio)) {
     throw new AppError(
       400,
       "Review the list of prohibited bad words in the bio"
