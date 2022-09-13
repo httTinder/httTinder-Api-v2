@@ -16,7 +16,7 @@ export class likes {
   @Column()
   receiver: string;
 
-  @Column()
+  @Column({ nullable: true})
   status: boolean;
 
   @CreateDateColumn()

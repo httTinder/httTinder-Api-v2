@@ -79,19 +79,19 @@ export class user {
     nullable: true,
     onDelete: "SET NULL",
   })
-  likes: likes;
+  likes: likes[];
 
   @OneToMany(() => sessions, (sessions) => sessions.user, {
     eager: true,
     nullable: true,
     onDelete: "SET NULL",
   })
-  sessions: sessions;
+  sessions: sessions[];
 
   @OneToMany(() => chat, (chat) => chat.user, {
     eager: true,
     nullable: true,
     onDelete: "SET NULL",
   })
-  chat: chat;
+  chat: chat[];
 }
