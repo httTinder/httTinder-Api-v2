@@ -1,6 +1,6 @@
 export interface IUserProfileUpdateRequest {
-  orientation?: string;
-  gender?: string;
+  orientation: string;
+  gender: string;
   bio?: string;
   height?: string;
   profileImage?: string;

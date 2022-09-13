@@ -22,6 +22,12 @@ export const updateLookingForService = async (
     throw new AppError(400, "review required fields");
   }
 
+  const regexOrientation = /^Homem$|^Mulher$|^Homem[/]Mulher$/;
+
+  if (!regexOrientation.test(data?.gender)) {
+    throw new AppError(400, "Review required fields of orientation");
+  }
+
   const regexAge = /[1-9][0-9][-][1-9][0-9]/;
 
   if (!regexAge.test(data.age)) {

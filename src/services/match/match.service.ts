@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { user } from "../../entities";
 import { AppError } from "../../errors/AppError";
 import getDistance from "../../utils/distance.utils";
-import AlgMathc from "../../utils/match.utils";
+import AlgMatch from "../../utils/match.utils";
 
 export default async function matchService(userId: string) {
   const userRepository = AppDataSource.getRepository(user);
@@ -26,7 +26,7 @@ export default async function matchService(userId: string) {
   let usersByScore: any = [];
 
   allUser.forEach(async (sendUser) => {
-    const scoreUser = await AlgMathc(requestUser, sendUser);
+    const scoreUser = await AlgMatch(requestUser, sendUser);
     if (scoreUser !== undefined) {
       usersByScore.push(scoreUser);
     }
