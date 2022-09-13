@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import { likes } from "../../entities/likes";
 import getDistance from "../../utils/distance.utils";
 import searchMatchs from "../../utils/serchMatchs.util";
+import { type } from "os";
 
 const userListService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(user);
@@ -58,7 +59,7 @@ const userListService = async (id: string) => {
             lng: allUsers?.location?.split("/")[1],
           };
 
-          let distance : number | string = Number(
+          let distance: number | string = Number(
             getDistance(requestUserlocation, sendUserLocation)
           );
           let modulateProfile: any = {};
@@ -72,8 +73,24 @@ const userListService = async (id: string) => {
           }
 
           if (distance == 0) {
-            distance = "<1"
+            distance = "<1";
           }
+
+          const newDate = new Date();
+
+          const lastWeek = `${newDate.getFullYear()}-${
+            newDate.getMonth() + 1
+          }-${newDate.getDate() - 7}`;
+
+          const sessions = [...allUsers.sessions]
+
+          const date = sessions[sessions.length-1]["createdAt"]
+
+          const lastSession = sessions[sessions.length-1]["createdAt"]
+
+          const lastSessionFormat = `${lastSession.getFullYear()}-${lastSession.getMonth()+1}-${lastSession.getDate()}`
+
+          const acitive = lastWeek >= lastSessionFormat
 
           const modulateUser = {
             id,
@@ -82,8 +99,9 @@ const userListService = async (id: string) => {
             images: profile?.images,
             additionalData: userAdditionalData,
             profile: modulateProfile,
-            distance: () => (distance === NaN ? null : distance),
-          };
+            distance,
+            acitive,
+          }
 
           sendUsers.push(modulateUser);
         }
@@ -101,7 +119,7 @@ const userListService = async (id: string) => {
     matchs: sendUserIds,
   };
 
-  return {userData: modulateUser, matchs : sendUsers};
+  return { userData: modulateUser, matchs: sendUsers };
 };
 
 export default userListService;
