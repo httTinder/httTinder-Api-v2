@@ -3,7 +3,7 @@ import { user } from "../../entities";
 import { likes } from "../../entities/likes";
 import { AppError } from "../../errors/AppError";
 
-export default async function sendLikeSevice(
+export default async function deleteMatchSevice(
   receveirId: string,
   requestId: string
 ): Promise<string> {
@@ -33,36 +33,18 @@ export default async function sendLikeSevice(
     throw new AppError(404, "User who received the like was not found");
   }
 
-  requestUser?.likes?.forEach((recUserId: any) => {
-    if (recUserId?.receiver == receveirId && recUserId?.status === true) {
-      throw new AppError(404, "The like has already been sent to this user");
-    }
-  });
+
 
   const findReqLikes = await likesRepository.findOne({
     where: { id: requestUser.likes.id, receiver: receveirId },
   });
 
-  if (!findReqLikes) {
-    const createReqLike = likesRepository.create({
-      receiver: receveirId,
-      status: true,
-      user: requestUser,
-    });
+if(!findReqLikes){
+    throw new AppError(404, "Match not found.")
 
-    await likesRepository.save(createReqLike);
+}
 
-    const createRecLike = likesRepository.create({
-      receiver: requestId,
-      user: receiverUser,
-    });
+  await likesRepository.update(findReqLikes.id, { status: false });
 
-    await likesRepository.save(createRecLike);
-
-    return "The like was registered";
-  }
-
-  await likesRepository.update(findReqLikes.id, { status: true });
-
-  return "It´s a match!";
+  return "Unmatch with successes!";
 }
