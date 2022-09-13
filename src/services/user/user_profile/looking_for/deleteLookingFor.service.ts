@@ -25,12 +25,12 @@ export const deleteLookingForService = async (userId: string) => {
     id: userFind?.profile?.id,
   });
 
-  if (!findProfile) {
+  if (!userFind?.profile) {
     throw new AppError(404, "profile not found");
   }
 
   const lookToDelete = await lookingForRepository.delete({
-    id: findProfile.lookingFor.id,
+    id: findProfile?.lookingFor?.id,
   });
 
   if (lookToDelete.affected == 0) {

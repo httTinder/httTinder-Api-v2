@@ -16,7 +16,8 @@ export const activateUserMiddleware = async (
       if (error) {
         throw new AppError(401, "Invalid Token");
       }
-      
+   
+     
       req.user = {
         isActive: decoded.isActive,
         id: decoded.sub,
