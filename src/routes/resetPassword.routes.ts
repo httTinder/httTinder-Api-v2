@@ -10,7 +10,7 @@ resetRoutes.post("", sendEmailTokenController);
 
 resetRoutes.post(
   "/:tokenEmail",
-  // activateUserMiddleware,
+  activateUserMiddleware,
   userConfirmTokenController
 );
 

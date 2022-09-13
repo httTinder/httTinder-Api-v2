@@ -6,7 +6,7 @@ export const userConfirmTokenController = async (
   res: Response
 ) => {
   const id = req.user.id;
-  console.log(id)
+
   await userConfirmTokenService(id);
 
   return res.json({ message: " Token Accepted" });

@@ -13,11 +13,7 @@ export const activateUserMiddleware = async (
     tokenEmail as string,
     process.env.SECRET_KEY as string,
     (error: any, decoded: any) => {
-      if (error.name === "TokenExpiredError") {
-        throw new AppError(401, "Token expired");
-      }
-      
-      if (error.name !== "TokenExpiredError") {
+      if (error) {
         throw new AppError(401, "Invalid Token");
       }
       
