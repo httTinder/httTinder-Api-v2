@@ -1,8 +1,16 @@
 import "dotenv/config";
 
-export function htmlBody(token: string) {
-  const link = process.env.BASE_URL;
-  
+export function htmlBody(
+  token: string,
+  message: string,
+  reset: boolean = false
+) {
+  let link = process.env.BASE_URL;
+
+  if (reset === true) {
+    link = process.env.BASE_RESET;
+  }
+
   const email = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -26,7 +34,7 @@ export function htmlBody(token: string) {
                               <hr>
                               <tr>
                                    <td align="center" style=" font-weight: 600; color: #ffffff; font-family: Arial, sans-serif; font-size: 1.5em; padding-top: 2em;">
-                                        Click on the button to activate you account!
+                                        ${message}
                                    </td>
                               </tr>
                               <tr>
