@@ -170,7 +170,8 @@ export default async function AlgMatch(requestUser: any, sendUser: any) {
   if (
     distance > Number(requestUser?.profile?.lookingFor?.location) &&
     distance !== undefined &&
-    requestUser?.profile?.lookingFor?.location !== undefined
+    requestUser?.profile?.lookingFor?.location !== undefined &&
+    distance !== NaN
   ) {
     return;
   }
