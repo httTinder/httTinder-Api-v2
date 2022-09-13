@@ -54,7 +54,7 @@ const updateUserHobbiesService = async (
     );
   }
 
-  if (name && VerifyHobbies(name)) {
+  if (name !== undefined && VerifyHobbies(name)) {
     throw new AppError(400, "Review your Hobbie");
   }
   
