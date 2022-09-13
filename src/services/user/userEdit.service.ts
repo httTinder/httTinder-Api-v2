@@ -25,6 +25,11 @@ const userEditService = async (
   if (data.email !== undefined) {
     throw new AppError(404, "email cannot be changed on this route");
   }
+
+  if (Number(data.age) === NaN) {
+    throw new AppError(406, "Age must be a number");
+  }
+
   if (data.age !== undefined && Number(data.age) < 18) {
     throw new AppError(406, "Ages under 18 are not possible.");
   }

@@ -8,10 +8,9 @@ import AlgMatch from "../../utils/match.utils";
 export default async function sendLikeSevice(
   receveirId: string,
   requestId: string
-) : Promise<string> {
-  let message = "the like was registered"
+): Promise<string> {
   if (receveirId == requestId) {
-    throw new AppError(400, "requesting user and receiver as are the same");
+    throw new AppError(400, "requesting user and receiver are the same");
   }
 
   const userRepository = AppDataSource.getRepository(user);
@@ -36,35 +35,36 @@ export default async function sendLikeSevice(
     throw new AppError(404, "user who received the like was not found");
   }
 
-  requestUser?.likes?.forEach((recUserId : any) => {
-    if (recUserId?.received === receveirId) {
+  requestUser?.likes?.forEach((recUserId: any) => {
+    if (recUserId?.receiver == receveirId && recUserId?.status === true) {
       throw new AppError(404, "the like has already been sent to this user");
     }
   });
 
-  receiverUser?.likes?.forEach((reqUserId : any) => {
-    if (reqUserId?.received === requestId) {
-      message = "It´s a match!"
-    }
-  })
+  const findReqLikes = await likesRepository.findOne({
+    where: { id: requestUser.likes.id, receiver: receveirId },
+  });
 
-  
-  
-  // const createReqLike = likesRepository.create({ receiver : receveirId, status: true, user : requestUser})
-  
-  // if (!requestUser?.likes) {
-  //   await likesRepository.update(requestUser, {receiver : receveirId, status: true})
-  // }
+  if (!findReqLikes) {
+    const createReqLike = likesRepository.create({
+      receiver: receveirId,
+      status: true,
+      user: requestUser,
+    });
 
-  // await likesRepository.save(createReqLike)
+    await likesRepository.save(createReqLike);
 
-  // const createRecLike = likesRepository.create({ receiver : requestId, user : receiverUser})
+    const createRecLike = likesRepository.create({
+      receiver: requestId,
+      user: receiverUser,
+    });
 
-  // if (!receiverUser?.likes) {
-  //   await likesRepository.update(receiverUser, {receiver : requestUser})
-  // }
+    await likesRepository.save(createRecLike);
 
-  // await likesRepository.save(createRecLike)
+    return "the like was registered";
+  }
 
-  return message
+  await likesRepository.update(findReqLikes.id, { status: true });
+
+  return "It´s a match!";
 }
