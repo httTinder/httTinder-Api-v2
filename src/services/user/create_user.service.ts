@@ -76,7 +76,7 @@ const createUserService = async ({
       expiresIn: "24h",
     }
   );
-  const html = htmlBody(token);
+  const html = htmlBody(token, "Click on the button to activate you account!");
   sendEmail({ to: email, subject: "Confirm your email", html });
 
   return newUser;
