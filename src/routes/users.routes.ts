@@ -35,7 +35,6 @@ import updateUserHobbiesController from "../controllers/user/user_aditional_data
 import deleteUserHobbieController from "../controllers/user/user_aditional_data/user_hobbies/delete_user_hobbie.controller";
 import { userAddDataSchema } from "../schemas/userAddData/userAddData.schemas";
 import { userEditSchema, userSchema } from "../schemas/user/user.schemas";
-import { updateUserProfileSchema } from "../schemas/userProfile/updateUserProfile.schemas";
 import { relationshipSchema } from "../schemas/userProfile/lookingfor/relationship/updateRelationship.schemas";
 import { addressRequestSchema } from "../schemas/user/address/address.schemas";
 import { userProfileMiddleware } from "../middlewares/user/user_profile";
@@ -221,7 +220,6 @@ usersRoutes.delete(
   adminPermission,
   verifyActiveMiddleware,
   verifyIdMiddleware,
-  verifySchemasMiddleware(updateUserProfileSchema),
   userDeleteProfileController
 );
 

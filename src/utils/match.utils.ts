@@ -1,6 +1,7 @@
+import { string } from "yup";
 import getDistance from "./distance.utils";
 
-export default async function AlgMathc(requestUser: any, sendUser: any) {
+export default async function AlgMatch(requestUser: any, sendUser: any) {
   if (requestUser.id === sendUser.id) {
     return;
   }
@@ -9,14 +10,14 @@ export default async function AlgMathc(requestUser: any, sendUser: any) {
 
   // Remove usuários ou adiciona score do user quem tenham/sejam pets/crianças/fumante/alcoolista e ele não esteja procurando por isso
 
-    if (
-      !requestUser?.profile?.lookingFor?.pets &&
-      sendUser?.userAdditionalData?.pets.length > 0 &&
-      requestUser?.profile?.lookingFor?.pets !== undefined &&
-      sendUser?.userAdditionalData?.pets !== undefined
-    ) {
-      return;
-    }
+  if (
+    !requestUser?.profile?.lookingFor?.pets &&
+    sendUser?.userAdditionalData?.pets.length > 0 &&
+    requestUser?.profile?.lookingFor?.pets !== undefined &&
+    sendUser?.userAdditionalData?.pets !== undefined
+  ) {
+    return;
+  }
   if (
     requestUser?.profile?.lookingFor?.pets &&
     sendUser?.userAdditionalData?.pets?.length > 0 &&
@@ -62,14 +63,14 @@ export default async function AlgMathc(requestUser: any, sendUser: any) {
     score += 10;
   }
 
-//   if (
-//     !requestUser?.profile?.lookingFor?.drinker &&
-//     sendUser?.userAdditionalData?.drinker &&
-//     requestUser?.profile?.lookingFor?.drinker !== undefined &&
-//     sendUser?.userAdditionalData?.drinker !== undefined
-//   ) {
-//     return;
-//   }
+  //   if (
+  //     !requestUser?.profile?.lookingFor?.drinker &&
+  //     sendUser?.userAdditionalData?.drinker &&
+  //     requestUser?.profile?.lookingFor?.drinker !== undefined &&
+  //     sendUser?.userAdditionalData?.drinker !== undefined
+  //   ) {
+  //     return;
+  //   }
 
   if (
     requestUser?.profile?.lookingFor?.drinker &&
@@ -124,13 +125,22 @@ export default async function AlgMathc(requestUser: any, sendUser: any) {
 
   // Remove usuário que não são buscado no gênero
 
-  const lookGender: any = requestUser?.profile?.lookingFor?.gender;
+  const reqLookGender: any =
+    requestUser?.profile?.lookingFor?.gender?.split("/");
 
-  if (
-    !lookGender?.split("/")?.includes(sendUser?.profile?.gender) &&
-    lookGender !== undefined &&
-    sendUser?.profile?.gender !== undefined
-  ) {
+  const sendGender: any = sendUser?.profile?.gender;
+
+  const verifyGender = () => {
+    let resp = true;
+    reqLookGender.forEach((req: string) => {
+      if (sendGender.includes(req)) {
+        resp = false;
+      }
+    });
+    return resp;
+  };
+
+  if (verifyGender()) {
     return;
   }
 
