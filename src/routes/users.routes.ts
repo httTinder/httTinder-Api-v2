@@ -54,6 +54,7 @@ import { deleteUserProfileImageController } from "../controllers/user/user_profi
 import { resendController } from "../controllers/user/resend.controller";
 import { locationUpdateController } from "../controllers/user/locationUpdate.controller";
 import { locationDeleteController } from "../controllers/user/locationDelete.controller";
+import { modDeleteController } from "../controllers/user/modDelete.controller";
 
 const usersRoutes = Router();
 
@@ -316,6 +317,14 @@ usersRoutes.post(
   devCreateUserController
 );
 
+usersRoutes.delete(
+  "/moddelete/:id",
+  verifyAuthMiddleware,
+  verifyAdminMiddleware,
+  verifyActiveMiddleware,
+  devCreateUserController
+);
+
 usersRoutes.patch(
   "/avatar/:id?",
   imageHeadersMiddleware,
@@ -334,7 +343,7 @@ usersRoutes.delete(
   adminPermission,
   verifyActiveMiddleware,
   verifyIdMiddleware,
-  deleteUserProfileImageController
+  modDeleteController
 );
 
 usersRoutes.patch("/resend/", resendController);

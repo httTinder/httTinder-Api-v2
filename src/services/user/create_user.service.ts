@@ -18,7 +18,7 @@ const createUserService = async ({
   name,
   password,
   isAdm = false,
-}: IUserRequest): Promise<user> => {
+}: IUserRequest): Promise<string> => {
   if (!age || !email || !name || !password) {
     throw new AppError(
       400,
@@ -79,7 +79,7 @@ const createUserService = async ({
   const html = htmlBody(token, "Click on the button to activate you account!");
   sendEmail({ to: email, subject: "Confirm your email", html });
 
-  return newUser;
+  return token;
 };
 
 export default createUserService;

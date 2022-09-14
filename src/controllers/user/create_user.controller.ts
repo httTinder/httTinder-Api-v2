@@ -12,7 +12,7 @@ const createUserController = async (req: Request, res: Response) => {
   if (req.body.isAdmin !== undefined) {
     throw new AppError(400, "isAdmin field not exist");
   }
-  await createUserService({
+  const message = await createUserService({
     age,
     email,
     name,
@@ -22,7 +22,7 @@ const createUserController = async (req: Request, res: Response) => {
 
   return res
     .status(201)
-    .json(instanceToPlain({ message: "user created successfully" }));
+    .json(instanceToPlain({ message }));
 };
 
 export default createUserController;
