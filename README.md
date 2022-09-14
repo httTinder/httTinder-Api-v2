@@ -257,13 +257,13 @@ _For more examples, please refer to the [Documentation](https://htttinder.github
 ## Team
 <table style="background-color:#272B33" >
 <tr>
-<td width="30%"><p>Quality assurance</p><a href="https://github.com/DiegoOlive29"><p>Diego Guimarães</p><img src="https://avatars.githubusercontent.com/u/98782639?v=4" /></a></td>
-<td width="30%"><p>Tech Lead</p><a href="https://github.com/fabiojcp"><p>Fábio Casanova</p><img src="https://avatars.githubusercontent.com/u/98760788?v=4" /></a></td>
-<td width="30%"><p>Dev | UX/UI</p><a href="https://github.com/fjrjdev"><p>Fábio Junior</p><img src="https://avatars.githubusercontent.com/u/78241929?v=4" /></a></td>
+<td width="30%"><p>Quality assurance</p><a href="https://github.com/DiegoOlive29"><p>Diego Guimarães</p><img style="border-radius:10%" src="https://avatars.githubusercontent.com/u/98782639?v=4" /></a></td>
+<td width="30%"><p>Tech Lead</p><a href="https://github.com/fabiojcp"><p>Fábio Casanova</p><img style="border-radius:10%" src="https://avatars.githubusercontent.com/u/98760788?v=4" /></a></td>
+<td width="30%"><p>Dev | UX/UI</p><a href="https://github.com/fjrjdev"><p>Fábio Junior</p><img style="border-radius:10%" src="https://avatars.githubusercontent.com/u/78241929?v=4" /></a></td>
 
 <table style="background-color:#272B33" >
-<td width="30%"><p>Quality assurance</p><a href="https://github.com/devigorgarcia"><p>Igor Garcia</p><img src="https://avatars.githubusercontent.com/u/19495297?v=4" /></a></td>
-<td width="30%"><p>PO | UX/UI</p><a href="https://github.com/Mapinko"><p>Mari Spinola </p><img src="https://avatars.githubusercontent.com/u/89092249?v=4" /></a></td>
-<td width="30%"><p>Scrum master</p><a href="https://github.com/lmfreire"><p>Matheus Freire</p><img src="https://avatars.githubusercontent.com/u/67373130?v=4" /></a></td>
+<td width="30%"><p>Quality assurance</p><a href="https://github.com/devigorgarcia"><p>Igor Garcia</p><img style="border-radius:10%" src="https://avatars.githubusercontent.com/u/19495297?v=4" /></a></td>
+<td width="30%"><p>PO | UX/UI</p><a href="https://github.com/Mapinko"><p>Mari Spinola </p><img style="border-radius:10%" src="https://avatars.githubusercontent.com/u/89092249?v=4" /></a></td>
+<td width="30%"><p>Scrum master</p><a href="https://github.com/lmfreire"><p>Matheus Freire</p><img style="border-radius:10%" src="https://avatars.githubusercontent.com/u/67373130?v=4" /></a></td>
 </tr>
 </table>
