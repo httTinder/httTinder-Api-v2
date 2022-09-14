@@ -343,6 +343,15 @@ usersRoutes.delete(
   adminPermission,
   verifyActiveMiddleware,
   verifyIdMiddleware,
+  deleteUserProfileImageController
+);
+
+usersRoutes.delete(
+  "/modelete/:id?",
+  verifyAuthMiddleware,
+  adminPermission,
+  verifyActiveMiddleware,
+  verifyIdMiddleware,
   modDeleteController
 );
 
