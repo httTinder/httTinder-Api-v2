@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+    api:
+        container_name: htt_tinder_api
+        build: .
+        ports:
+            - 3000:3000
+        environment:
+            - DB_HOST=localhost
+            - DB_PASSWORD=your_local_postgre_password
+            - DB=data_base_name
+            - DB_USER=your_user
+            - SECRET_KEY=your_secret_key
+            - SMTP_USER=email_to_send
+            - SMTP_PWD=email_password
+            - CLOUD_NAME=cloudinary_user
+            - CLOUD_KEY=cloudinary_password
+            - CLOUD_SECRET=cloudinary_secret_key
+            - BASE_URL=base_url_send_in_email
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - .:/app
+
+    db:
+        container_name: htt_tinder_db
+        image: postgres:14
+        ports:
+            - 5431:5432
+        environment:
+            - POSTGRES_USER=your_user
+            - POSTGRES_PASSWORD=your_local_postgre_password
+            - POSTGRES_DB=data_base_name
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U mapin -d  htt_tinder_db']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 5s
