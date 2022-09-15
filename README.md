@@ -296,7 +296,7 @@ _For more examples, please refer to the [Documentation](https://htttinder.github
     <p>PO | UX/UI</p>
     <a href="https://github.com/Mapinko">
       <p>Mari Spinola</p>
-      <img style="border-radius:10%"src="https://avatars.githubusercontent.com/u/89092249?v=4" />
+      <img style="border-radius:10%"src="https://photos.app.goo.gl/z8fWWFnKNVDNVsFu9" />
     </a>
   </td>
   
